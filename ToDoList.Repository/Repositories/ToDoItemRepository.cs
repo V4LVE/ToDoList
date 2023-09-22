@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ToDoList.Repository.Repositories
 {
-    internal class ToDoItemRepository : GenericRepository<ToDoItem>, IToDoItemRepository
+    public class ToDoItemRepository : GenericRepository<ToDoItem>, IToDoItemRepository
     {
         #region Backing fields
         private readonly ToDoListContext _dbContext;

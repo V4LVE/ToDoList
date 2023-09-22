@@ -4,32 +4,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ToDoList.Repository.Interfaces
+namespace ToDoList.Services.Interfaces
 {
-    public interface IGenericRepository<E> where E : class
+    public interface IGenericService<DTO> where DTO : class
     {
         /// <summary>
         /// Adds an entity to the database
         /// </summary>
         /// <param name="entity"></param>
-        Task CreateAsync(E entity);
+        Task CreateAsync(DTO entity);
 
         /// <summary>
         /// Updates an entiry in the database
         /// </summary>
         /// <param name="entity"></param>
-        Task UpdateAsync(E entity);
+        Task UpdateAsync(DTO entity);
 
         /// <summary>
         /// Deletes an entity from the database
         /// </summary>
         /// <param name="entity"></param>
-        Task DeleteAsync(E entity);
+        Task DeleteAsync(DTO entity);
 
         /// <summary>
         /// Gets an entities from the database
         /// </summary>
         /// <returns></returns>
-        Task<List<E>> GetAllAsync();
+        Task<List<DTO>> GetAllAsync();
     }
 }

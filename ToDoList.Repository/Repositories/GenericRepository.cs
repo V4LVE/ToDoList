@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ToDoList.Repository.Repositories
 {
-    internal class GenericRepository<E> : IGenericRepository<E> where E : class
+    public class GenericRepository<E> : IGenericRepository<E> where E : class
     {
         #region Backing fields
         private readonly ToDoListContext _dbContext;
