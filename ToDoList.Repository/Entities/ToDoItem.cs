@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ToDoList.Repository.Enums;
 
-namespace ToDoList.Repository.Model
+namespace ToDoList.Repository.Entities
 {
     public class ToDoItem
     {
