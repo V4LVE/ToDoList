@@ -13,10 +13,16 @@ namespace ToDoList.Pages
         #endregion
 
         #region Properties
+        [BindProperty]
         public List<ToDoItemDTO> ToDoItems { get; set; }
+        public ToDoItemDTO ToDoItem { get; set; }
+        [BindProperty]
+        public string Description { get; set; }
+        [BindProperty]
+        public ToDoList.Repository.Enums.Priority PriorityForm { get; set; }
         #endregion
 
-        public IndexModel(ILogger<IndexModel> logger, IToDoItemService toDoItemService)
+    public IndexModel(ILogger<IndexModel> logger, IToDoItemService toDoItemService)
         {
             _logger = logger;
             _toDoItemService = toDoItemService;
@@ -25,7 +31,23 @@ namespace ToDoList.Pages
 
         public void OnGet()
         {
-            ToDoItems = new List<ToDoItemDTO>();
+            ToDoItems = _toDoItemService.GetAllNotCompletedAsync().Result;
+        }
+
+        public void OnPostCreateNewTask()
+        {
+            ToDoItem = new ToDoItemDTO
+            {
+                ID = Guid.NewGuid(),
+                Priority = PriorityForm,
+                Description = Description,
+                DateCreated = DateTime.Now,
+                DateFinished = null,
+                IsCompleted = false
+            };
+
+            _toDoItemService.CreateAsync(ToDoItem);
+
         }
     }
 }

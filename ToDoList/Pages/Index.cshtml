@@ -1,18 +1,47 @@
 ﻿@page
+@using ToDoList.Repository;
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">TO DO Listen!</h1>
-    <hr />
     @if (Model.ToDoItems.Count == 0)
     {
-        <h3>There are no items on the list.</h3>
+        <h3>There are no items in the list.</h3>
     }
     else
     {
         //Logic for displaying the list here
     }
+</div>
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="createNewTask" aria-labelledby="createNewTaskLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="createNewTaskLabel">Create New Task</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div>
+            In here you can create a new task.
+        </div>
+        <hr />
+        <form method="post" asp-page-handler="CreateNewTask">
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <input asp-for="@Model.Description" id="description" class="form-control" name="description"/>
+            </div>
+            <div class="mb-3">
+                <label for="priority" class="form-label">Priority</label>
+                <select class="form-select" name="priorityForm">
+                    @foreach (PriorityDTO priority in Enum.GetValues(typeof(PriorityDTO)))
+                    {
+                        <option value="@priority">@priority</option>
+                    }
+                </select>
+            </div>
+            
+            <button type="submit"  class="btn btn-primary">Submit</button>
+        </form>
+    </div>
 </div>

@@ -13,10 +13,5 @@ namespace ToDoList.Repository.Domain
         public ToDoListContext(DbContextOptions<ToDoListContext> options) : base(options) { }
         public DbSet<ToDoItem> ToDoItems { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            //optionsBuilder.UseSqlServer(@"Server=ALEX_PC\\SQLEXPRESS;Database=ToDoListDB;Trusted_Connection=True;TrustServerCertificate=True"); //Laptop
-            optionsBuilder.UseSqlServer(@"Server=DESKTOP-25DVHN0\ENVIRONMENTDB;Database=ToDoListDB;Trusted_Connection=True;TrustServerCertificate=True"); //Desktop
-        }
     }
 }
