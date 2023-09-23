@@ -9,14 +9,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ToDoList.Repository.Repositories
 {
-    public class GenericRepository<E> : IGenericRepository<E> where E : class
+    public abstract class GenericRepository<E> : IGenericRepository<E> where E : class
     {
         #region Backing fields
         private readonly ToDoListContext _dbContext;
         #endregion
 
         #region Constructor
-        public GenericRepository(ToDoListContext context)
+        protected GenericRepository(ToDoListContext context)
         {
             _dbContext = context;
         }
@@ -35,7 +35,7 @@ namespace ToDoList.Repository.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<List<E>> GetAllAsync(E entity)
+        public async Task<List<E>> GetAllAsync()
         {
             return await _dbContext.Set<E>().AsNoTracking().ToListAsync();
         }
