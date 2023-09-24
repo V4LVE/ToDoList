@@ -29,11 +29,14 @@ namespace ToDoList.Pages
             
         }
 
-        public void OnGet()
+        public async Task<IActionResult> OnGet()
         {
-            ToDoItems = _toDoItemService.GetAllNotCompletedAsync().Result;
+            ToDoItems = await _toDoItemService.GetAllNotCompletedAsync();
+
+            return Page();
         }
 
+        //Creates a new task
         public void OnPostCreateNewTask()
         {
             ToDoItem = new ToDoItemDTO
@@ -48,6 +51,17 @@ namespace ToDoList.Pages
 
             _toDoItemService.CreateAsync(ToDoItem);
 
+        }
+
+        public async Task<IActionResult> OnPostCompleteTaskAsync(Guid itemGuid)
+        {
+            ToDoItem = await _toDoItemService.GetByIDAsync(itemGuid);
+            ToDoItem.IsCompleted = true;
+            ToDoItem.DateFinished = DateTime.Now;
+
+            await _toDoItemService.UpdateAsync(ToDoItem);
+
+            return RedirectToPage();
         }
     }
 }
