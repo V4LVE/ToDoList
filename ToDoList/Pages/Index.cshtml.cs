@@ -61,7 +61,7 @@ namespace ToDoList.Pages
 
             await _toDoItemService.UpdateAsync(ToDoItem);
 
-            return RedirectToPage();
+            return RedirectToPage("/Index");
         }
     }
 }

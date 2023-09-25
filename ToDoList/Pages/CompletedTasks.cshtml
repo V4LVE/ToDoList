@@ -1,0 +1,58 @@
+﻿@page
+@using ToDoList.Services.DataTransferObejcts;
+@model CompletedTasksModel
+@{
+    ViewData["Title"] = "Completed Tasks";
+}
+
+<table class="table table-light table-striped text-center">
+    <thead>
+        <tr>
+            <th>Description</th>
+            <th>Priority</th>
+            <th>Created</th>
+            <th>Finished</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.ToDoItemsCompleted.Count == 0)
+        {
+            <tr>
+                <td>There are no items in the list.</td>
+            </tr>
+        }
+        else
+        {
+            <form asp-page-handler="DeleteTask" method="post">
+                @foreach (ToDoItemDTO item in Model.ToDoItemsCompleted)
+                {
+                <tr>
+                    <td>@item.Description</td>
+                    <td>@item.Priority</td>
+                    <td>@item.DateCreated <input type="hidden" name="itemGuid" value="@item.ID" /></td>
+                    <td>@item.DateFinished</td>
+                    <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirm">Delete</button></td>
+                </tr>
+
+                <!-- Delete Confirm control -->
+                <div class="modal fade" id="deleteConfirm" tabindex="-1" aria-labelledby="deleteConfirmLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Are you sure you want to delete?</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">This action cannot be undone!</div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+            </form>
+
+        }
+    </tbody>
+</table>
