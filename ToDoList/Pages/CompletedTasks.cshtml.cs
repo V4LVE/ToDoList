@@ -25,7 +25,7 @@ namespace ToDoList.Pages
             return Page();
         }
 
-        public async Task<IActionResult> OnPostDeleteTask(Guid itemGuid)
+        public async Task<IActionResult> OnPostDelete(Guid itemGuid)
         {
             ToDoItemDTO temp = await _toDoItemService.GetByIDAsync(itemGuid);
 

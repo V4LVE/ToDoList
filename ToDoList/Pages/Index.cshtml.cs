@@ -37,7 +37,7 @@ namespace ToDoList.Pages
         }
 
         //Creates a new task
-        public void OnPostCreateNewTask()
+        public async Task<IActionResult> OnPostCreateNewTask()
         {
             ToDoItem = new ToDoItemDTO
             {
@@ -49,8 +49,9 @@ namespace ToDoList.Pages
                 IsCompleted = false
             };
 
-            _toDoItemService.CreateAsync(ToDoItem);
+            await _toDoItemService.CreateAsync(ToDoItem);
 
+            return RedirectToPage();
         }
 
         public async Task<IActionResult> OnPostCompleteTaskAsync(Guid itemGuid)
