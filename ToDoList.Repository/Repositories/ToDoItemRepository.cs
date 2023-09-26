@@ -7,6 +7,7 @@ using ToDoList.Repository.Entities;
 using ToDoList.Repository.Interfaces;
 using ToDoList.Repository.Domain;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.ObjectModel;
 
 namespace ToDoList.Repository.Repositories
 {
@@ -23,14 +24,18 @@ namespace ToDoList.Repository.Repositories
         }
         #endregion
 
-        public async Task<List<ToDoItem>> GetAllCompletedAsync()
+        public async Task<ObservableCollection<ToDoItem>> GetAllCompletedAsync()
         {
-            return await _dbContext.ToDoItems.Where(x => x.IsCompleted == true).AsNoTracking().ToListAsync();
+            ObservableCollection<ToDoItem> temp = new(await _dbContext.ToDoItems.Where(x => x.IsCompleted == true).AsNoTracking().ToListAsync());
+
+            return temp;
         }
 
-        public async Task<List<ToDoItem>> GetAllNotCompletedAsync()
+        public async Task<ObservableCollection<ToDoItem>> GetAllNotCompletedAsync()
         {
-            return await _dbContext.ToDoItems.Where(x => x.IsCompleted == false).AsNoTracking().ToListAsync();
+            ObservableCollection<ToDoItem> temp = new(await _dbContext.ToDoItems.Where(x => x.IsCompleted == false).AsNoTracking().ToListAsync());
+
+            return temp;
         }
 
         public async Task<ToDoItem> GetByIDAsync(Guid id)

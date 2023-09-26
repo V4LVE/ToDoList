@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ToDoList.Services.Interfaces;
 using ToDoList.Services.DataTransferObejcts;
+using System.Collections.ObjectModel;
 
 namespace ToDoList.Pages
 {
@@ -13,20 +14,18 @@ namespace ToDoList.Pages
         #endregion
 
         #region Properties
-        [BindProperty]
-        public List<ToDoItemDTO> ToDoItems { get; set; }
-        public ToDoItemDTO ToDoItem { get; set; }
+        public ObservableCollection<ToDoItemDTO> ToDoItems { get; set; }
         [BindProperty]
         public string Description { get; set; }
         [BindProperty]
         public ToDoList.Repository.Enums.Priority PriorityForm { get; set; }
         #endregion
 
-    public IndexModel(ILogger<IndexModel> logger, IToDoItemService toDoItemService)
+        public IndexModel(ILogger<IndexModel> logger, IToDoItemService toDoItemService)
         {
             _logger = logger;
             _toDoItemService = toDoItemService;
-            
+
         }
 
         public async Task<IActionResult> OnGet()
@@ -39,30 +38,32 @@ namespace ToDoList.Pages
         //Creates a new task
         public async Task<IActionResult> OnPostCreateNewTask()
         {
-            ToDoItem = new ToDoItemDTO
+            if (ModelState.IsValid)
             {
-                ID = Guid.NewGuid(),
-                Priority = PriorityForm,
-                Description = Description,
-                DateCreated = DateTime.Now,
-                DateFinished = null,
-                IsCompleted = false
-            };
+                ToDoItemDTO temp = new ToDoItemDTO
+                {
+                    ID = Guid.NewGuid(),
+                    Priority = PriorityForm,
+                    Description = Description,
+                    DateCreated = DateTime.Now,
+                };
 
-            await _toDoItemService.CreateAsync(ToDoItem);
-
-            return RedirectToPage();
+                await _toDoItemService.CreateAsync(temp);
+                return RedirectToPage(); 
+            }
+            ToDoItems = await _toDoItemService.GetAllNotCompletedAsync();
+            return Page();
         }
 
-        public async Task<IActionResult> OnPostCompleteTaskAsync(Guid itemGuid)
+        public async Task<IActionResult> OnPostCompleteTaskAsync(Guid itemID)
         {
-            ToDoItem = await _toDoItemService.GetByIDAsync(itemGuid);
-            ToDoItem.IsCompleted = true;
-            ToDoItem.DateFinished = DateTime.Now;
+            ToDoItemDTO temp = await _toDoItemService.GetByIDAsync(itemID);
+            temp.IsCompleted = true;
+            temp.DateFinished = DateTime.Now;
 
-            await _toDoItemService.UpdateAsync(ToDoItem);
+            await _toDoItemService.UpdateAsync(temp);
 
-            return RedirectToPage("/Index");
+            return RedirectToPage();
         }
     }
 }

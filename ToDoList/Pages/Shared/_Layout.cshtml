@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using ToDoList.Services.Enums;
+@using ToDoList.Repository.Entities;
+@using ToDoList.Services.DataTransferObejcts;
+@using ToDoList.Services.Interfaces;
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -20,11 +25,14 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Tasks</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" data-bs-toggle="offcanvas" data-bs-target="#createNewTask" aria-controls="createNewTask">Create new task</a>
-                        </li>
+                        @if (ViewData["Title"] == "Tasks")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" data-bs-toggle="offcanvas" data-bs-target="#createNewTask" aria-controls="createNewTask">Create new task</a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/CompletedTasks">Completed Tasks</a>
                         </li>
@@ -33,6 +41,11 @@
             </div>
         </nav>
     </header>
+    <div class="alert alert-warning alert-dismissible fade show w-50" role="alert">
+        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,6 @@ namespace ToDoList.Services.Interfaces
         /// Gets an entities from the database
         /// </summary>
         /// <returns></returns>
-        Task<List<DTO>> GetAllAsync();
+        Task<ObservableCollection<DTO>> GetAllAsync();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,9 +34,9 @@ namespace ToDoList.Services.Services
             await _genericRepository.DeleteAsync(_mappingService._mapper.Map<Entity>(entity));
         }
 
-        public async Task<List<DTO>> GetAllAsync()
+        public async Task<ObservableCollection<DTO>> GetAllAsync()
         {
-            return _mappingService._mapper.Map<List<DTO>>(await _genericRepository.GetAllAsync());
+            return _mappingService._mapper.Map<ObservableCollection<DTO>>(await _genericRepository.GetAllAsync());
         }
 
         public async Task UpdateAsync(DTO entity)

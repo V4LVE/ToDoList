@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ToDoList.Repository.Interfaces;
 using ToDoList.Repository.Domain;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.ObjectModel;
 
 namespace ToDoList.Repository.Repositories
 {
@@ -35,9 +36,11 @@ namespace ToDoList.Repository.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<List<E>> GetAllAsync()
+        public async Task<ObservableCollection<E>> GetAllAsync()
         {
-            return await _dbContext.Set<E>().AsNoTracking().ToListAsync();
+            ObservableCollection<E> temp = new(await _dbContext.Set<E>().AsNoTracking().ToListAsync());
+
+            return temp;
         }
 
         public async Task DeleteAsync(E entity)

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Collections.ObjectModel;
 using ToDoList.Services.DataTransferObejcts;
 using ToDoList.Services.Interfaces;
 
@@ -10,8 +11,7 @@ namespace ToDoList.Pages
         private readonly ILogger<CompletedTasksModel> _logger;
         private readonly IToDoItemService _toDoItemService;
 
-        [BindProperty]
-        public List<ToDoItemDTO> ToDoItemsCompleted { get; set; }
+        public ObservableCollection<ToDoItemDTO> ToDoItemsCompleted { get; set; }
 
         public CompletedTasksModel(ILogger<CompletedTasksModel> logger, IToDoItemService toDoItemService)
         {
@@ -34,7 +34,7 @@ namespace ToDoList.Pages
                 _toDoItemService.DeleteAsync(temp);
             }
 
-            return Page();
+            return RedirectToPage();
         }
     }
 }

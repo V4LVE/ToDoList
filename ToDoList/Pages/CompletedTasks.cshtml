@@ -24,9 +24,10 @@
         }
         else
         {
-            <form asp-page-handler="Delete" method="post">
+            
             @foreach (ToDoItemDTO item in Model.ToDoItemsCompleted)
             {
+                <form asp-page-handler="Delete" method="post">
                 <tr>
                     <td>@item.Description</td>
                     <td>@item.Priority</td>
@@ -34,10 +35,6 @@
                     <td>@item.DateFinished</td>
                     <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirm">Delete</button></td>
                 </tr>
-            }
-
-            
-
                 <!-- Delete Confirm control -->
                 <div class="modal fade" id="deleteConfirm" tabindex="-1" aria-labelledby="deleteConfirmLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -53,9 +50,9 @@
                         </div>
                     </div>
                 </div>
-            
-            </form>
 
+                </form>
+            }
         }
     </tbody>
 </table>

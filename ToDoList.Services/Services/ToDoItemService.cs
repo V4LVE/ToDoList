@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,14 +26,14 @@ namespace ToDoList.Services.Services
         }
         #endregion
 
-        public async Task<List<ToDoItemDTO>> GetAllCompletedAsync()
+        public async Task<ObservableCollection<ToDoItemDTO>> GetAllCompletedAsync()
         {
-            return _mappingService._mapper.Map<List<ToDoItemDTO>>(await _toDoItemRepository.GetAllCompletedAsync());
+            return _mappingService._mapper.Map<ObservableCollection<ToDoItemDTO>>(await _toDoItemRepository.GetAllCompletedAsync());
         }
 
-        public async Task<List<ToDoItemDTO>> GetAllNotCompletedAsync()
+        public async Task<ObservableCollection<ToDoItemDTO>> GetAllNotCompletedAsync()
         {
-            return _mappingService._mapper.Map<List<ToDoItemDTO>>(await _toDoItemRepository.GetAllNotCompletedAsync());
+            return _mappingService._mapper.Map<ObservableCollection<ToDoItemDTO>>(await _toDoItemRepository.GetAllNotCompletedAsync());
         }
 
         public async Task<ToDoItemDTO> GetByIDAsync(Guid id)
