@@ -18,7 +18,7 @@ namespace ToDoList.Pages
         [BindProperty]
         public string Description { get; set; }
         [BindProperty]
-        public ToDoList.Repository.Enums.Priority PriorityForm { get; set; }
+        public ToDoList.Repository.Enums.PriorityEnum PriorityForm { get; set; }
         #endregion
 
         public IndexModel(ILogger<IndexModel> logger, IToDoItemService toDoItemService)

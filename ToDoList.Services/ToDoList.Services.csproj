@@ -25,4 +25,8 @@
     <ProjectReference Include="..\ToDoList.Repository\ToDoList.Repository.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Enums\" />
+  </ItemGroup>
+
 </Project>

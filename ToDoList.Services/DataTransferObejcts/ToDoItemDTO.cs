@@ -19,7 +19,7 @@ namespace ToDoList.Services.DataTransferObejcts
         /// <summary>
         /// The priority of the ToDoItem.
         /// </summary>
-        public Priority Priority { get; set; }
+        public PriorityEnum Priority { get; set; }
 
         /// <summary>
         /// The description of the ToDoItem.

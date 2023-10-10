@@ -14,8 +14,8 @@ namespace ToDoList.Repository.Entities
     {
         [Key]
         public Guid ID { get; set; }
-        [DefaultValue(Priority.Normal)]
-        public Priority Priority { get; set; }
+        [DefaultValue(PriorityEnum.Normal)]
+        public PriorityEnum Priority { get; set; }
         [MaxLength(25), Required]
         public string Description { get; set; }
         public DateTime DateCreated { get; set; }

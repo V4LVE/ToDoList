@@ -6,14 +6,11 @@ using System.Threading.Tasks;
 
 namespace ToDoList.Repository.Enums
 {
-    public enum Priority
+    public enum PriorityEnum
     {
         Low,
         Normal,
         High
     }
 
-    internal class PriorityEnum
-    {
-    }
 }

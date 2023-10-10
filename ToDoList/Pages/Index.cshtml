@@ -1,7 +1,7 @@
 ﻿@page
 @using ToDoList.Repository;
 @using ToDoList.Services.DataTransferObejcts;
-@using ToDoList.Services.Enums;
+@using ToDoList.Repository.Enums;
 @model IndexModel
 @{
     ViewData["Title"] = "Tasks";
@@ -39,7 +39,7 @@
                         <td>@item.DateCreated <input type="hidden" name="itemID" value="@item.ID" /></td>
                         <td><input class="form-check-input" value="" asp-for="@item.IsCompleted" type="submit" /></td>
                         <td>
-                            <a class="btn btn-warning" asp-page-handler="Edit" asp-route-id="@item.ID">Edit</a>
+                            <a class="btn btn-warning" asp-page="Edit" asp-route-Guid="@item.ID">Edit</a>
                         </td>
                     </tr>
                     </form>
@@ -70,7 +70,7 @@
                 <div class="mb-3">
                     <label for="priority" class="form-label">Priority</label>
                     <select class="form-select" name="priorityForm">
-                        @foreach (PriorityDTO priority in Enum.GetValues(typeof(PriorityDTO)))
+                        @foreach (PriorityEnum priority in Enum.GetValues(typeof(PriorityEnum)))
                         {
                             <option value="@priority">@priority</option>
                         }

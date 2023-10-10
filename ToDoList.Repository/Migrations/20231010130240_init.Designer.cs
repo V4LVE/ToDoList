@@ -12,7 +12,7 @@ using ToDoList.Repository.Domain;
 namespace ToDoList.Repository.Migrations
 {
     [DbContext(typeof(ToDoListContext))]
-    [Migration("20230925064406_init")]
+    [Migration("20231010130240_init")]
     partial class init
     {
         /// <inheritdoc />
