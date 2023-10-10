@@ -17,7 +17,6 @@
                 <th>Priority</th>
                 <th>Created</th>
                 <th>Completed</th>
-                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -33,14 +32,11 @@
                 @foreach (ToDoItemDTO item in Model.ToDoItems)
                 {
                     <form asp-page-handler="CompleteTask" method="post">
-                    <tr>
-                        <td>@item.Description</td>
+                    <tr asp-page="Edit" asp-route-Guid="@item.ID">
+                        <td><a style="text-decoration:none; color:black;" asp-page="Edit" asp-route-Guid="@item.ID">@item.Description</a></td>
                         <td>@item.Priority</td>
                         <td>@item.DateCreated <input type="hidden" name="itemID" value="@item.ID" /></td>
                         <td><input class="form-check-input" value="" asp-for="@item.IsCompleted" type="submit" /></td>
-                        <td>
-                            <a class="btn btn-warning" asp-page="Edit" asp-route-Guid="@item.ID">Edit</a>
-                        </td>
                     </tr>
                     </form>
                 }

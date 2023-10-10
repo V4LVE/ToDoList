@@ -18,7 +18,8 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<ToDoListContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("LapTopCon"));
+    //options.UseSqlServer(builder.Configuration.GetConnectionString("LapTopCon"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DesktopCon"));
 });
 
 var app = builder.Build();

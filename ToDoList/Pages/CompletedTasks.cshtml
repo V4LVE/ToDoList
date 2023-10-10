@@ -24,7 +24,6 @@
         }
         else
         {
-            
             @foreach (ToDoItemDTO item in Model.ToDoItemsCompleted)
             {
                 <form asp-page-handler="Delete" method="post">
@@ -56,3 +55,22 @@
         }
     </tbody>
 </table>
+
+<form asp-page-handler="DeleteAll" method="post">
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAllConfirm">Delete All</button>
+
+    <div class="modal fade" id="deleteAllConfirm" tabindex="-1" aria-labelledby="deleteAllConfirmLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Are you sure you want to delete everything?</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">This action cannot be undone!</div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger">Delete All</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

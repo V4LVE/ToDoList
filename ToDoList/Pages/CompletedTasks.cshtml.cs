@@ -25,13 +25,29 @@ namespace ToDoList.Pages
             return Page();
         }
 
-        public async Task<IActionResult> OnPostDelete(Guid itemGuid)
+        public async Task<IActionResult> OnPostDeleteAsync(Guid itemGuid)
         {
             ToDoItemDTO temp = await _toDoItemService.GetByIDAsync(itemGuid);
 
             if (temp != null)
             {
-                _toDoItemService.DeleteAsync(temp);
+              
+            }
+
+            return RedirectToPage();
+        }
+
+        public async Task<IActionResult> OnPostDeleteAllAsync()
+        {
+            ObservableCollection<ToDoItemDTO> temp = await _toDoItemService.GetAllCompletedAsync();
+
+            if (temp != null)
+            {
+                foreach (ToDoItemDTO item in temp)
+                {
+                    await _toDoItemService.DeleteAsync(item);
+                }
+                
             }
 
             return RedirectToPage();
