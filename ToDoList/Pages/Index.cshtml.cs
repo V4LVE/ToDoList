@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using ToDoList.Services.Interfaces;
 using ToDoList.Services.DataTransferObejcts;
 using System.Collections.ObjectModel;
+using Microsoft.JSInterop;
+using Microsoft.AspNetCore.Components;
+using ToDoList.Services.Models;
 
 namespace ToDoList.Pages
 {
@@ -14,6 +17,7 @@ namespace ToDoList.Pages
         #endregion
 
         #region Properties
+        public AlertModel Alert { get; set; } = new("blank", "blank");
         public ObservableCollection<ToDoItemDTO> ToDoItems { get; set; }
         [BindProperty]
         public string Description { get; set; }
@@ -31,7 +35,6 @@ namespace ToDoList.Pages
         public async Task<IActionResult> OnGet()
         {
             ToDoItems = await _toDoItemService.GetAllNotCompletedAsync();
-
             return Page();
         }
 
@@ -49,9 +52,11 @@ namespace ToDoList.Pages
                 };
 
                 await _toDoItemService.CreateAsync(temp);
-                return RedirectToPage(); 
+                Alert = new AlertModel("Task created successfully!", "alert alert-success");
+                return RedirectToPage(new { Alert }); 
             }
             ToDoItems = await _toDoItemService.GetAllNotCompletedAsync();
+            Alert = new AlertModel("An error has occurred while creating your task!", "alert alert-danger");
             return Page();
         }
 
