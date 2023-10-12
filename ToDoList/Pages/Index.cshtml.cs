@@ -17,10 +17,10 @@ namespace ToDoList.Pages
         #endregion
 
         #region Properties
-        public AlertModel Alert { get; set; } = new("blank", "blank");
+        [BindProperty(SupportsGet = true)]
+        public AlertModel Alert { get; set; }
         public ObservableCollection<ToDoItemDTO> ToDoItems { get; set; }
-        [BindProperty]
-        public string Description { get; set; }
+        public ToDoItemDTO ToDoItemForm { get; set; }
         [BindProperty]
         public ToDoList.Repository.Enums.PriorityEnum PriorityForm { get; set; }
         #endregion
@@ -32,14 +32,15 @@ namespace ToDoList.Pages
 
         }
 
-        public async Task<IActionResult> OnGet()
+        public async Task<IActionResult> OnGet(AlertModel alertRes)
         {
+            Alert = alertRes;
             ToDoItems = await _toDoItemService.GetAllNotCompletedAsync();
             return Page();
         }
 
         //Creates a new task
-        public async Task<IActionResult> OnPostCreateNewTask()
+        public async Task<IActionResult> OnPostCreateNewTask(string description)
         {
             if (ModelState.IsValid)
             {
@@ -47,13 +48,13 @@ namespace ToDoList.Pages
                 {
                     ID = Guid.NewGuid(),
                     Priority = PriorityForm,
-                    Description = Description,
+                    Description = description,
                     DateCreated = DateTime.Now,
                 };
 
                 await _toDoItemService.CreateAsync(temp);
-                Alert = new AlertModel("Task created successfully!", "alert alert-success");
-                return RedirectToPage(new { Alert }); 
+                Alert = new AlertModel("Task was created successfully!", "alert alert-success");
+                return RedirectToPage(Alert); 
             }
             ToDoItems = await _toDoItemService.GetAllNotCompletedAsync();
             Alert = new AlertModel("An error has occurred while creating your task!", "alert alert-danger");

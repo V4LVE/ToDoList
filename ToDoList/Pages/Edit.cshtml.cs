@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ToDoList.Services.DataTransferObejcts;
 using ToDoList.Services.Interfaces;
+using ToDoList.Services.Models;
 
 namespace ToDoList.Web.Pages
 {
@@ -34,7 +35,8 @@ namespace ToDoList.Web.Pages
             if (ModelState.IsValid)
             {
                 await _toDoItemService.UpdateAsync(EditItem);
-                return RedirectToPage("/Index");
+                AlertModel tempAlert = new("Task was successfully updated!", "alert alert-success");
+                return RedirectToPage("/Index", tempAlert);
             }
 
             return Page();

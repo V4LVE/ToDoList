@@ -9,9 +9,9 @@ namespace ToDoList.Services.Models
     public class AlertModel
     {
 
-        public string AlertMessage { get; set; }
+        public string? AlertMessage { get; set; }
 
-        public string AlertType { get; set; }
+        public string? AlertType { get; set; }
 
         public AlertModel()
         {
