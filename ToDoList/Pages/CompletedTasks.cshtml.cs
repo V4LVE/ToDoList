@@ -31,7 +31,7 @@ namespace ToDoList.Pages
 
             if (temp != null)
             {
-              
+                await _toDoItemService.DeleteAsync(temp);
             }
 
             return RedirectToPage();

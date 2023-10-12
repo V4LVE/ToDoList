@@ -8,7 +8,7 @@
 }
 
 <div style="z-index: 999; position: fixed; top: 0; right: 0;" id="alertPlaceholder">
-@if (Model.Alert.AlertMessage != "blank")
+@if (Model.Alert.AlertMessage != null)
     {
         <div class="@Model.Alert.AlertType alert-dismissible fade show" role="alert">
             @Model.Alert.AlertMessage
@@ -31,7 +31,7 @@
             @if (Model.ToDoItems.Count == 0)
             {
                 <tr>
-                    <td>There are no items in the list.</td>
+                    <td >There are no items in the list.</td>
                 </tr>
             }
             else
