@@ -28,6 +28,7 @@ namespace ToDoList.Repository.Repositories
         public async Task<ObservableCollection<ToDoItem>> GetAllCompletedAsync()
         {
             ObservableCollection<ToDoItem> temp = new(await _dbContext.ToDoItems.Where(x => x.IsCompleted == true).AsNoTracking().ToListAsync());
+            temp.OrderByDescending(x => x.DateCreated);
 
             return temp;
         }
@@ -35,7 +36,6 @@ namespace ToDoList.Repository.Repositories
         public async Task<ObservableCollection<ToDoItem>> GetAllNotCompletedAsync()
         {
             ObservableCollection<ToDoItem> temp = new(await _dbContext.ToDoItems.Where(x => x.IsCompleted == false).AsNoTracking().ToListAsync());
-
             return temp;
         }
 

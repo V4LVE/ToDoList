@@ -37,7 +37,7 @@
             else
             {
 
-                @foreach (ToDoItemDTO item in Model.ToDoItems)
+                @foreach (ToDoItemDTO item in Model.ToDoItems.OrderBy(x => x.DateCreated))
                 {
                     <form asp-page-handler="CompleteTask" method="post">
                     <tr asp-page="Edit" asp-route-Guid="@item.ID">
