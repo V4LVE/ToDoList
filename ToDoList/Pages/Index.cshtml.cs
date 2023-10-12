@@ -30,7 +30,7 @@ namespace ToDoList.Pages
             
             _logger = logger;
             _toDoItemService = toDoItemService;
-            _toDoItemService.SPGetByID("8664CDE3-24FA-4553-8084-40EE9ED862CB");
+            //_toDoItemService.SPGetByID("8664CDE3-24FA-4553-8084-40EE9ED862CB");
         }
 
         public async Task<IActionResult> OnGet(AlertModel alertRes)
