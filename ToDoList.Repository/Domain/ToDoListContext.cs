@@ -13,6 +13,23 @@ namespace ToDoList.Repository.Domain
     {
         public ToDoListContext(DbContextOptions<ToDoListContext> options) : base(options) { }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ToDoItem>().Property(x => x.ID).ValueGeneratedNever();
+            //modelBuilder.Entity<User>().Property(x => x.ID).ValueGeneratedNever();
+
+            modelBuilder.Entity<ToDoItem>().HasOne(t => t.User).WithMany(u => u.ToDoItems).HasForeignKey(t => t.UserID);
+                
+
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    ID = 1,
+                    Username = "V4LVE",
+                    Password = "Pwrvol901"
+                });
+        }
+
         public DbSet<ToDoItem> ToDoItems { get; set; }
         public DbSet<User> Users { get; set; }
 

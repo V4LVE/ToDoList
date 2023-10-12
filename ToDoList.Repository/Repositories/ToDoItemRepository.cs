@@ -39,6 +39,13 @@ namespace ToDoList.Repository.Repositories
             return temp;
         }
 
+        public async Task<ObservableCollection<ToDoItem>> GetAllNotCompletedByUserIdAsync(int id)
+        {
+            ObservableCollection<ToDoItem> temp = new(await _dbContext.ToDoItems.Where(x => x.IsCompleted == false && x.UserID == id).AsNoTracking().ToListAsync());
+
+            return temp;
+        }
+
         public async Task<ToDoItem> GetByIDAsync(Guid id)
         {
             return await _dbContext.ToDoItems.Where(x => x.ID == id).AsNoTracking().FirstOrDefaultAsync();

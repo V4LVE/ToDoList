@@ -41,6 +41,11 @@ namespace ToDoList.Services.Services
             return _mappingService._mapper.Map<ToDoItemDTO>(await _toDoItemRepository.GetByIDAsync(id));
         }
 
+        public async Task<ObservableCollection<ToDoItemDTO>> GetAllNotCompletedByUserIdAsync(int id)
+        {
+            return _mappingService._mapper.Map<ObservableCollection<ToDoItemDTO>>(await _toDoItemRepository.GetAllNotCompletedByUserIdAsync(id));
+        }
+
         public void SPGetByID(string id)
         {
             _toDoItemRepository.SPGetByID(id);

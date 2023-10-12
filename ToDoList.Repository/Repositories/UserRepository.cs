@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,5 +23,25 @@ namespace ToDoList.Repository.Repositories
             _dbContext = context;
         }
         #endregion
+
+        public bool checkIfValid(string username, string password)
+        {
+            User temp = _dbContext.Users.FirstOrDefault(x => x.Username == username);
+
+            if (temp != null && temp.Username == username && temp.Password == password)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public async Task<User> GetUserByUsernameAsync(string username)
+        {
+            return await _dbContext.Users.Where(x => x.Username == username).AsNoTracking().FirstOrDefaultAsync();
+
+        }
     }
 }

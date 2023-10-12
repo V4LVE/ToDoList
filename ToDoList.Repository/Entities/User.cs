@@ -18,5 +18,7 @@ namespace ToDoList.Repository.Entities
         [Required]
         public string Password { get; set; }
 
+        public List<ToDoItem>? ToDoItems { get; set; }
+
     }
 }

@@ -24,5 +24,24 @@ namespace ToDoList.Services.Services
             _userRepository = userRepository;
         }
         #endregion
+
+        public bool CheckIfValid(string username, string password)
+        {
+            if (_userRepository.checkIfValid(username,password))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public async Task<UserDTO> GetUserByUsernameAsync(string username)
+        {
+            UserDTO temp = _mappingService._mapper.Map<UserDTO>(await _userRepository.GetUserByUsernameAsync(username));
+
+            return temp;
+        }
     }
 }

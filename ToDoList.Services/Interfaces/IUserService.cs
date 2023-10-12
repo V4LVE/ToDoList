@@ -10,5 +10,8 @@ namespace ToDoList.Services.Interfaces
 {
     public interface IUserService : IGenericRepository<UserDTO>
     {
+        public bool CheckIfValid(string username, string password);
+
+        public Task<UserDTO> GetUserByUsernameAsync(string username);
     }
 }

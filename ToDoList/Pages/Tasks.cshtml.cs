@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using Microsoft.JSInterop;
 using Microsoft.AspNetCore.Components;
 using ToDoList.Services.Models;
+using ToDoList.Repository.Entities;
 
 namespace ToDoList.Pages
 {
@@ -19,9 +20,15 @@ namespace ToDoList.Pages
 
         #region Properties
         [BindProperty(SupportsGet = true)]
+        public UserDTO UserReqested { get; set; }
+
+        [BindProperty(SupportsGet = true)]
         public AlertModel Alert { get; set; }
+
         public ObservableCollection<ToDoItemDTO> ToDoItems { get; set; }
+
         public ToDoItemDTO ToDoItemForm { get; set; }
+
         [BindProperty]
         public ToDoList.Repository.Enums.PriorityEnum PriorityForm { get; set; }
         #endregion
@@ -32,24 +39,32 @@ namespace ToDoList.Pages
             _logger = logger;
             _toDoItemService = toDoItemService;
             _userService = userService;
-            _toDoItemService.SPGetByID("8664CDE3-24FA-4553-8084-40EE9ED862CB");
+            //_toDoItemService.SPGetByID("8664CDE3-24FA-4553-8084-40EE9ED862CB");
         }
 
-        public async Task<IActionResult> OnGet(AlertModel alertRes)
+        public async Task<IActionResult> OnGet(AlertModel alertRes, string username)
         {
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                return RedirectToPage("/Error");
+            }
             Alert = alertRes;
-            ToDoItems = await _toDoItemService.GetAllNotCompletedAsync();
+            UserReqested = await _userService.GetUserByUsernameAsync(username);
+            ToDoItems = await _toDoItemService.GetAllNotCompletedByUserIdAsync(UserReqested.ID);
             return Page();
         }
 
         //Creates a new task
-        public async Task<IActionResult> OnPostCreateNewTask(string description)
+        public async Task<IActionResult> OnPostCreateNewTask(string description, string username)
         {
+            UserDTO tempUser = await _userService.GetUserByUsernameAsync(username);
+
             if (ModelState.IsValid)
             {
                 ToDoItemDTO temp = new ToDoItemDTO
                 {
                     ID = Guid.NewGuid(),
+                    UserID = tempUser.ID,
                     Priority = PriorityForm,
                     Description = description,
                     DateCreated = DateTime.Now,
@@ -59,7 +74,7 @@ namespace ToDoList.Pages
                 Alert = new AlertModel("Task was created successfully!", "alert alert-success");
                 return RedirectToPage(Alert); 
             }
-            ToDoItems = await _toDoItemService.GetAllNotCompletedAsync();
+            ToDoItems = await _toDoItemService.GetAllNotCompletedByUserIdAsync(UserReqested.ID);
             Alert = new AlertModel("An error has occurred while creating your task!", "alert alert-danger");
             return Page();
         }

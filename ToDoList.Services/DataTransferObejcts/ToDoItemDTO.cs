@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ToDoList.Repository.Enums;
+using ToDoList.Repository.Entities;
 
 namespace ToDoList.Services.DataTransferObejcts
 {
@@ -14,7 +15,11 @@ namespace ToDoList.Services.DataTransferObejcts
         /// <summary>
         /// The ID of the ToDoItem.
         /// </summary>
+        ///
+        [Key]
         public Guid ID { get; set; }
+
+        public int UserID { get; set; }
 
         /// <summary>
         /// The priority of the ToDoItem.

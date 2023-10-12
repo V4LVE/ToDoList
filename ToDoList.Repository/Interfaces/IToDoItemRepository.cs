@@ -22,6 +22,8 @@ namespace ToDoList.Repository.Interfaces
         /// <returns></returns>
         Task<ObservableCollection<ToDoItem>> GetAllNotCompletedAsync();
 
+        Task<ObservableCollection<ToDoItem>> GetAllNotCompletedByUserIdAsync(int id);
+
         /// <summary>
         /// Get a ToDoItem by its ID.
         /// </summary>

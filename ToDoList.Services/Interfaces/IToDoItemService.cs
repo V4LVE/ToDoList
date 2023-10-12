@@ -24,6 +24,8 @@ namespace ToDoList.Services.Interfaces
         /// <returns></returns>
         Task<ObservableCollection<ToDoItemDTO>> GetAllNotCompletedAsync();
 
+        Task<ObservableCollection<ToDoItemDTO>> GetAllNotCompletedByUserIdAsync(int id);
+
         /// <summary>
         /// Get a ToDoItem by its ID.
         /// </summary>
