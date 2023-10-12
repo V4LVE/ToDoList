@@ -49,6 +49,27 @@ namespace ToDoList.Repository.Migrations
 
                     b.ToTable("ToDoItems");
                 });
+
+            modelBuilder.Entity("ToDoList.Repository.Entities.User", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Users");
+                });
 #pragma warning restore 612, 618
         }
     }

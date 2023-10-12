@@ -13,6 +13,9 @@ builder.Services.AddScoped<MappingService, MappingService>();
 builder.Services.AddScoped<IToDoItemRepository, ToDoItemRepository>();
 builder.Services.AddScoped<IToDoItemService, ToDoItemService>();
 
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+
 // Add services to the container.
 builder.Services.AddRazorPages();
 

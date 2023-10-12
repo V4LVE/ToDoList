@@ -1,86 +1,29 @@
-﻿@page "{alertRes?}"
-@using ToDoList.Repository;
-@using ToDoList.Services.DataTransferObejcts;
-@using ToDoList.Repository.Enums;
-@model IndexModel
+﻿@page
+@model ToDoList.Web.Pages.IndexModel
 @{
-    ViewData["Title"] = "Tasks";
+ViewData["Title"] = "Login";
 }
 
-<div style="z-index: 999; position: fixed; top: 0; right: 0;" id="alertPlaceholder">
-@if (Model.Alert.AlertMessage != "blank")
-    {
-        <div class="@Model.Alert.AlertType alert-dismissible fade show" role="alert">
-            @Model.Alert.AlertMessage
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    }
-</div>
-
-<div class="text-center">
-    <table class="table table-light table-striped text-center">
-        <thead>
-            <tr>
-                <th>Description</th>
-                <th>Priority</th>
-                <th>Created</th>
-                <th>Completed</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (Model.ToDoItems.Count == 0)
-            {
-                <tr>
-                    <td>There are no items in the list.</td>
-                </tr>
-            }
-            else
-            {
-
-                @foreach (ToDoItemDTO item in Model.ToDoItems)
-                {
-                    <form asp-page-handler="CompleteTask" method="post">
-                    <tr asp-page="Edit" asp-route-Guid="@item.ID">
-                        <td><a style="text-decoration:none; color:black;" asp-page="Edit" asp-route-Guid="@item.ID">@item.Description</a></td>
-                        <td>@item.Priority</td>
-                        <td>@item.DateCreated <input type="hidden" name="itemID" value="@item.ID" /></td>
-                        <td><input class="form-check-input" value="" asp-for="@item.IsCompleted" type="submit" /></td>
-                    </tr>
-                    </form>
-                }
-            }
-        </tbody>
-    </table>
-</div>
-
-
- <!--Off canvas for creating a new task.-->
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="createNewTask" aria-labelledby="createNewTaskLabel">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="createNewTaskLabel">Create New Task</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <div>
-                In here you can create a new task.
-            </div>
-            <hr />
-            <form method="post" asp-page-handler="CreateNewTask">
-                <div class="mb-3">
-                    <label for="description" class="form-label">Description</label>
-                    <input asp-for="ToDoItemForm.Description" id="description" class="form-control" name="description" />
-                    <span asp-validation-for="ToDoItemForm.Description" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <label for="priority" class="form-label">Priority</label>
-                    <select class="form-select" name="priorityForm">
-                        @foreach (PriorityEnum priority in Enum.GetValues(typeof(PriorityEnum)))
-                        {
-                            <option value="@priority">@priority</option>
-                        }
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Create Task</button>
-            </form>
-        </div>
+<div class="card" style="width: 300px; height: 400px; margin: auto">
+    <div class="card-header text-center">
+        <h3>Login</h3>
     </div>
+    <div class="card-body">
+        <form method="post" asp-page-handler="Login">
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" id="username" class="form-control" placeholder="Type your username"/>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" id="password" class="form-control" placeholder="Type your password" />
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+        </form>
+    </div>
+    <div class="card-footer">
+        <p>Don't have an account? <a href="/Register">Register</a></p>
+    </div>
+</div>

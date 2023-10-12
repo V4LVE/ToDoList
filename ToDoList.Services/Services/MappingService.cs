@@ -19,6 +19,9 @@ namespace ToDoList.Services.Services
             {
                 cfg.CreateMap<ToDoItem, ToDoItemDTO>();
                 cfg.CreateMap<ToDoItemDTO, ToDoItem>();
+
+                cfg.CreateMap<User, UserDTO>();
+                cfg.CreateMap<UserDTO, User>();
             });
 
             try

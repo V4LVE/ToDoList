@@ -12,7 +12,7 @@ using ToDoList.Repository.Domain;
 namespace ToDoList.Repository.Migrations
 {
     [DbContext(typeof(ToDoListContext))]
-    [Migration("20231012142213_init")]
+    [Migration("20231012153312_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -51,6 +51,27 @@ namespace ToDoList.Repository.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("ToDoItems");
+                });
+
+            modelBuilder.Entity("ToDoList.Repository.Entities.User", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Users");
                 });
 #pragma warning restore 612, 618
         }
