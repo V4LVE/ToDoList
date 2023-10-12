@@ -30,5 +30,7 @@ namespace ToDoList.Services.Interfaces
         /// <param name="id"></param>
         /// <returns></returns>
         Task<ToDoItemDTO> GetByIDAsync(Guid id);
+
+        public void SPGetByID(string id);
     }
 }
