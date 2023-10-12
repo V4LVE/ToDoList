@@ -28,5 +28,9 @@ namespace ToDoList.Repository.Interfaces
         /// <param name="id"></param>
         /// <returns></returns>
         Task<ToDoItem> GetByIDAsync(Guid id);
+
+        public void SPGetByID(string id);
+
+
     }
 }
