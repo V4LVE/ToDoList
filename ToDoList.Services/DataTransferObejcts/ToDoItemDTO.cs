@@ -24,6 +24,8 @@ namespace ToDoList.Services.DataTransferObejcts
         /// <summary>
         /// The description of the ToDoItem.
         /// </summary>
+        ///
+        [MaxLength(25)]
         public string Description { get; set; }
 
         /// <summary>
