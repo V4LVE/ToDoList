@@ -1,7 +1,26 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using ToDoList.Repository.Domain;
+using ToDoList.Repository.Interfaces;
+using ToDoList.Repository.Repositories;
+using ToDoList.Services.Interfaces;
+using ToDoList.Services.Services;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddScoped<MappingService, MappingService>();
+
+builder.Services.AddScoped<IToDoItemRepository, ToDoItemRepository>();
+builder.Services.AddScoped<IToDoItemService, ToDoItemService>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Services.AddDbContext<ToDoListContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("LapTopCon"));
+    //options.UseSqlServer(builder.Configuration.GetConnectionString("DesktopCon"));
+});
 
 var app = builder.Build();
 
