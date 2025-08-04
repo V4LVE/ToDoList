@@ -38,7 +38,7 @@ A Simple ToDoList App made with Razor Pages and Entity Framework Core.
 
 ## Authors and acknowledgment
 
-* Main developer: V4LVE
+* Main developer: V4LVE XD
 
 ---
 ## Support
