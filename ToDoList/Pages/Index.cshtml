@@ -18,7 +18,7 @@
 </div>
 
 <div class="text-center">
-    <table class="table table-light table-striped text-center">
+    <table id="taskTable" class="table table-light table-striped text-center">
         <thead>
             <tr>
                 <th>Description</th>
@@ -51,6 +51,24 @@
             }
         </tbody>
     </table>
+    <hr />
+    <form method="post" asp-page-handler="CreateNewTask">
+        <div class="mb-3">
+            <label for="description1" class="form-label">Description</label>
+            <input asp-for="ToDoItemForm.Description" id="description1" class="form-control" name="description" />
+            <span asp-validation-for="ToDoItemForm.Description" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="priority1" class="form-label">Priority</label>
+            <select class="form-select" id="priority1" name="priorityForm">
+                @foreach (PriorityEnum priority in Enum.GetValues(typeof(PriorityEnum)))
+                {
+                    <option value="@priority">@priority</option>
+                }
+            </select>
+        </div>
+        <button type="submit" id="newTaskSubmit1" class="btn btn-primary">Create Task</button>
+    </form>
 </div>
 
 
@@ -73,14 +91,14 @@
                 </div>
                 <div class="mb-3">
                     <label for="priority" class="form-label">Priority</label>
-                    <select class="form-select" name="priorityForm">
+                    <select class="form-select" id="priority" name="priorityForm">
                         @foreach (PriorityEnum priority in Enum.GetValues(typeof(PriorityEnum)))
                         {
                             <option value="@priority">@priority</option>
                         }
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary">Create Task</button>
+                <button type="submit" id="newTaskSubmit" class="btn btn-primary">Create Task</button>
             </form>
         </div>
     </div>
